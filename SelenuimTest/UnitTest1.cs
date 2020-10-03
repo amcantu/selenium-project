@@ -16,8 +16,8 @@ namespace SelenuimTest
         [Theory]
         [InlineData(WebDriversEnum.Chrome, "http://demo.guru99.com/test/newtours/", "Welcome: Mercury Tours")]
         [InlineData(WebDriversEnum.Chrome, "https://www.google.com/", "Google")]
-        [InlineData(WebDriversEnum.Firefox, "http://demo.guru99.com/test/newtours/", "Welcome: Mercury Tours")]
-        [InlineData(WebDriversEnum.Firefox, "https://www.google.com/", "Google")]
+//        [InlineData(WebDriversEnum.Firefox, "http://demo.guru99.com/test/newtours/", "Welcome: Mercury Tours")]
+//        [InlineData(WebDriversEnum.Firefox, "https://www.google.com/", "Google")]
         public void TestWebPageTitles(WebDriversEnum driver, string baseUrl, string expectedTitle)
         {
             //Arrange
@@ -36,10 +36,13 @@ namespace SelenuimTest
 
         private IWebDriver GetWebDriverInstance(WebDriversEnum driver) 
         {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("--headless");
+            chromeOptions.AddArguments("--no-sandbox");
             switch (driver)
             {
                 case WebDriversEnum.Chrome:
-                    return new ChromeDriver();
+                    return new ChromeDriver(chromeOptions);
                 case WebDriversEnum.Firefox:
                     return new FirefoxDriver();
                 default:
@@ -48,3 +51,5 @@ namespace SelenuimTest
         }
     }
 }
+
+
